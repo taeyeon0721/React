@@ -2,9 +2,16 @@ import React from 'react'
 
 const Box = (props) => {  
   console.log("props",props);
+  
+  const getBorderColor = () => {
+    if(props.result === "win") return "3px solid green";
+    if(props.result === "lose") return "3px solid red";
+    return "3px solid black";
+  }
+
   return (
     <div> 
-        <div className="box">
+        <div className="box" style={{border:getBorderColor()}}>
             <h1>{props.title}</h1>
             <img className="item-img" src={props.item && props.item.img}/>
             {/* 초기값이 null이라면 props.item이라는 가드값을 넣어줘야함 

@@ -37,12 +37,18 @@ function App() {
     let computerChoice = randomChoice();
     //console.log(computerChoice);
     setComputerSelect(computerChoice);
-    judgement(choice[userChoice], computerChoice);
+    setResult(judgement(choice[userChoice], computerChoice));
   };
 
   const judgement = (user, computer) => {
     console.log("user", user, "computer", computer);
-  }
+
+    if(user.name === computer.name){
+      return "tie";
+    }else if(user.name === "Rock") return computer.name === "Scissors" ? "win":"lose";  
+    else if(user.name === "Scissors") return computer.name === "Paper" ? "win":"lose";
+    else if(user.name === "Paper") return computer.name === "Rock" ? "win":"lose";
+  };
 
   //객체에서 랜덤한 값을 추출하는 법  
   const randomChoice=()=>{
@@ -55,7 +61,12 @@ function App() {
      console.log("final",final);
      return choice[final];
   }
-
+  
+  const getComputerResult  = (result) => {
+    if(result === "win") return "lose";
+    if(result === "lose") return "win";
+    return result;
+  }
 
 
 /* 1. onclick 이벤트 사용할 때, 
@@ -65,7 +76,7 @@ function App() {
     <div>
       <div className="main">
         <Box title="You" item={userSelect} result={result}/>
-        <Box title="Computer" item={computerSelect} result={result}/>
+        <Box title="Computer" item={computerSelect} result={getComputerResult(result)}/>
       </div>
       <div className="btn">
         <button onClick={()=>play("scissors")}>가위</button> 
